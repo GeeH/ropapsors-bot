@@ -33,18 +33,25 @@ class TheBot
         }
         // we know we have a valid move to work with
 
-        $botPlays = $validMoves[$this->randomizer->randomMeUp(count($validMoves) - 1)];
-        
-        if ($playerPlays === $botPlays) {
-            $resultText = self::TIE_TEXT;
-        }
+        $botPlays = $this->useExpertMachineLearningToPickAMoveToPlay($validMoves);
 
+        $resultText = $this->calculateComplexResultScenario($playerPlays, $botPlays);
+
+        $playerEmoji = constant('self::' . strtoupper($playerPlays) . '_EMOJI');
+        $botEmoji = constant('self::' . strtoupper($botPlays) . '_EMOJI');
+
+        return "You played {$playerEmoji} and RopaporsBot played {$botEmoji} -- {$resultText}";
+    }
+
+
+    private function calculateComplexResultScenario(string $playerPlays, string $botPlays): string
+    {
         if (
             $playerPlays === self::ROCK && $botPlays === self::PAPER
             || $playerPlays === self::PAPER && $botPlays === self::SCISSORS
             || $playerPlays === self::SCISSORS && $botPlays === self::ROCK
         ) {
-            $resultText = self::LOSE_TEXT;
+            return self::LOSE_TEXT;
         }
 
         if (
@@ -52,12 +59,14 @@ class TheBot
             || $playerPlays === self::PAPER && $botPlays === self::ROCK
             || $playerPlays === self::SCISSORS && $botPlays === self::PAPER
         ) {
-            $resultText = self::WIN_TEXT;
+            return self::WIN_TEXT;
         }
 
-        $playerEmoji = constant('self::' . strtoupper($playerPlays) . '_EMOJI');
-        $botEmoji = constant('self::' . strtoupper($botPlays) . '_EMOJI');
+        return self::TIE_TEXT;
+    }
 
-        return "You played {$playerEmoji} and RopaporsBot played {$botEmoji} -- {$resultText}";
+    private function useExpertMachineLearningToPickAMoveToPlay(array $validMoves): string
+    {
+        return $validMoves[$this->randomizer->randomMeUp(count($validMoves) - 1)];
     }
 }
