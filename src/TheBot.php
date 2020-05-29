@@ -34,30 +34,28 @@ class TheBot
         // we know we have a valid move to work with
 
         $botPlays = $validMoves[$this->randomizer->randomMeUp(count($validMoves) - 1)];
-
-        $resultText = '';
-
+        
         if ($playerPlays === $botPlays) {
             $resultText = self::TIE_TEXT;
         }
 
         if (
-                $playerPlays === self::ROCK && $botPlays === self::PAPER
-            ||  $playerPlays === self::PAPER && $botPlays === self::SCISSORS
-            ||  $playerPlays === self::SCISSORS && $botPlays === self::ROCK
+            $playerPlays === self::ROCK && $botPlays === self::PAPER
+            || $playerPlays === self::PAPER && $botPlays === self::SCISSORS
+            || $playerPlays === self::SCISSORS && $botPlays === self::ROCK
         ) {
             $resultText = self::LOSE_TEXT;
         }
 
         if (
-                $playerPlays === self::ROCK && $botPlays === self::SCISSORS
-            ||  $playerPlays === self::PAPER && $botPlays === self::ROCK
-            ||  $playerPlays === self::SCISSORS && $botPlays === self::PAPER
+            $playerPlays === self::ROCK && $botPlays === self::SCISSORS
+            || $playerPlays === self::PAPER && $botPlays === self::ROCK
+            || $playerPlays === self::SCISSORS && $botPlays === self::PAPER
         ) {
             $resultText = self::WIN_TEXT;
         }
 
-        $playerEmoji = constant( 'self::' . strtoupper($playerPlays) . '_EMOJI');
+        $playerEmoji = constant('self::' . strtoupper($playerPlays) . '_EMOJI');
         $botEmoji = constant('self::' . strtoupper($botPlays) . '_EMOJI');
 
         return "You played {$playerEmoji} and RopaporsBot played {$botEmoji} -- {$resultText}";
