@@ -1,0 +1,26 @@
+{
+    "name": "ghockin/ropapors-bot",
+    "authors": [
+        {
+            "name": "Gary Hockin",
+            "email": "gary@hock.in"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "RopaporsBot\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RopaporsBotTest\\": "tests/"
+        }
+    },§
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "pestphp/pest": "^0.1.5"
+    }
+}
